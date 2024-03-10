@@ -3,6 +3,6 @@
 </script>
 
 <template>
-  <WordleBoard wordOfTheDay="You did it!" />
+  <WordleBoard wordOfTheDay="TESTS" />
 </template>
 ./components/WordleBoard.vue
