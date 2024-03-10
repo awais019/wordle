@@ -16,7 +16,10 @@
   const formattedGuessInProgress = computed({
     get: () => guessInProgress.value,
     set: (newValue: string) => {
-      guessInProgress.value = newValue.slice(0, WORD_SIZE).toUpperCase();
+      guessInProgress.value = newValue
+        .slice(0, WORD_SIZE)
+        .toUpperCase()
+        .replace(/[^A-Z]+/gi, "");
     },
   });
 
