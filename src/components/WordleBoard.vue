@@ -7,21 +7,26 @@
   defineProps({
     wordOfTheDay: {
       type: String,
+      required: true,
       validator: (wordGiven: string) => englishWords.includes(wordGiven),
     },
   });
-  const guessSubmitted = ref("");
+  const guessesSubmitted = ref<string[]>([]);
 </script>
 
 <template>
   <main>
-    <GuessInput @guess-submitted="(guess) => (guessSubmitted = guess)" />
+    <GuessInput @guess-submitted="(guess) => guessesSubmitted.push(guess)" />
 
     <p
-      v-if="guessSubmitted.length > 0"
+      v-if="
+        guessesSubmitted.length === 6 || guessesSubmitted.includes(wordOfTheDay)
+      "
       class="end-of-game-message"
       v-text="
-        guessSubmitted === wordOfTheDay ? VICTORY_MESSAGE : DEFEAT_MESSAGE
+        guessesSubmitted.includes(wordOfTheDay)
+          ? VICTORY_MESSAGE
+          : DEFEAT_MESSAGE
       "
     />
   </main>
