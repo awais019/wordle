@@ -114,6 +114,30 @@ describe("WordleBoard", () => {
       ).toEqual("");
     });
 
+    test("the player loses control after the max amount of gusses have been sent", async () => {
+      const guesses = ["WRONG", "GUESS", "HELLO", "WORLD", "HAPPY", "CODER"];
+
+      for (const guess of guesses) {
+        await playerSubmitsGuess(guess);
+      }
+
+      expect(
+        wrapper
+          .find<HTMLInputElement>("input[type='text']")
+          .attributes("disabled")
+      ).not.toBeUndefined();
+    });
+
+    test("the player loses control after the correct guess has been given", async () => {
+      await playerSubmitsGuess(wordOfTheDay);
+
+      expect(
+        wrapper
+          .find<HTMLInputElement>("input[type='text']")
+          .attributes("disabled")
+      ).not.toBeUndefined();
+    });
+
     test(`player guesses are limited to ${WORD_SIZE} letters`, async () => {
       await playerSubmitsGuess(wordOfTheDay + "EXTRA");
 

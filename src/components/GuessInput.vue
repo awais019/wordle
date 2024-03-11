@@ -4,6 +4,8 @@
   import { WORD_SIZE } from "@/settings";
   import GuessView from "@/components/GuessView.vue";
 
+  withDefaults(defineProps<{ disabled?: boolean }>(), { disabled: false });
+
   const emit = defineEmits<{
     "guess-submitted": [guess: string];
   }>();
@@ -35,6 +37,7 @@
   <input
     v-model="formattedGuessInProgress"
     :maxlength="WORD_SIZE"
+    :disabled="disabled"
     autofocus
     @blur="({target}) => (target as HTMLInputElement).focus()"
     type="text"
