@@ -6,7 +6,9 @@
     answer?: string;
   }>();
 
-  function getFeedBack(letterPosition: number) {
+  function getFeedBack(
+    letterPosition: number
+  ): null | "correct" | "incorrect" | "almost" {
     if (!props.answer) return null;
 
     return props.answer[letterPosition] == props.guess[letterPosition]
