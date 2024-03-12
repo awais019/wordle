@@ -247,7 +247,7 @@ describe("WordleBoard", () => {
         const wordOfTheDay = "WORLD";
         const playerGuess = "WRONG";
 
-        test.skipIf(expectedFeedback != "correct")(
+        test.skipIf(expectedFeedback == "almost")(
           `the feedback for '${playerGuess[position]}' (index: ${position}) should be '${expectedFeedback}' because '${reason}'`,
           async () => {
             wrapper = mount(WordleBoard, { propsData: { wordOfTheDay } });
