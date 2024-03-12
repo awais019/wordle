@@ -11,6 +11,7 @@
   }>();
 
   const guessInProgress = ref("");
+  const hasFailedValidation = ref<boolean>(false);
 
   const formattedGuessInProgress = computed({
     get: () => guessInProgress.value,
@@ -24,6 +25,9 @@
 
   function onSubmit() {
     if (!englishWords.includes(guessInProgress.value)) {
+      hasFailedValidation.value = true;
+      setTimeout(() => (hasFailedValidation.value = false), 500);
+
       return;
     }
     emit("guess-submitted", guessInProgress.value);
@@ -32,7 +36,11 @@
 </script>
 
 <template>
-  <GuessView :guess="formattedGuessInProgress" />
+  <GuessView
+    v-if="!disabled"
+    :class="{ shake: hasFailedValidation }"
+    :guess="formattedGuessInProgress"
+  />
 
   <input
     v-model="formattedGuessInProgress"
@@ -49,5 +57,24 @@
   input {
     position: absolute;
     opacity: 0;
+  }
+  .shake {
+    animation: shake;
+    animation-duration: 100ms;
+    animation-iteration-count: 2;
+  }
+  @keyframes shake {
+    0% {
+      transform: translateX(-2%);
+    }
+    25% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(2%);
+    }
+    75% {
+      transform: translateX(0);
+    }
   }
 </style>
