@@ -75,6 +75,16 @@
     }
   }
 
+  [data-letter-feedback="correct"] {
+    --back-color: hsl(120, 25%, 65%);
+  }
+  [data-letter-feedback="almost"] {
+    --back-color: hsl(40, 65%, 48%);
+  }
+  [data-letter-feedback="incorrect"] {
+    --back-color: hsl(0, 0%, 70%);
+  }
+
   $maxWordSize: 5;
   @for $i from 1 through $maxWordSize {
     .with-flips:nth-of-type(#{$i}) {
